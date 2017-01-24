@@ -2,14 +2,11 @@
   "name": "Meteor-Neo4j-Demo",
   "version": "1.1.0",
   "description": "Most advanced and efficient Neo4j REST API Driver, with support of https and GrapheneDB",
-  "main": "main.js",
+  "repository": "https://github.com/VeliovGroup/neo4j-demo",
+  "website": "http://neo4j-graph.herokuapp.com",
+  "logo": "https://raw.githubusercontent.com/VeliovGroup/ostrio-neo4jdriver/master/logo.min.png",
   "scripts": {
-    "preinstall": "cd ./programs/server && npm install",
     "start": "node main.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/VeliovGroup/neo4j-demo.git"
   },
   "dependencies": {
     "async": "2.1.4",
@@ -41,12 +38,16 @@
     "useragent": "^2.1.11",
     "vis": "^4.8.2"
   },
-  "author": "Dmitriy A. (Veliov Group, LLC)",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/VeliovGroup/neo4j-demo/issues"
+  "env": {
+    "ROOT_URL": {
+      "description": "Full URL of your app, with protocol (scheme), ex.: https://example.com",
+      "required": true
+    },
+    "NEO4J_URL": {
+      "description": "Full URL to Neo4j, with protocol (scheme), ex.: http://neo4j:1234@localhost:7474. Create free one at: http://www.graphenedb.com",
+      "required": true
+    }
   },
-  "homepage": "http://neo4j-graph.herokuapp.com",
   "keywords": [
     "Neo4j",
     "driver",
@@ -59,6 +60,12 @@
     "db",
     "fiber",
     "fibers"
+  ],
+  "image": "heroku/nodejs",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
   ],
   "engines": {
     "node": "4.6.2",
