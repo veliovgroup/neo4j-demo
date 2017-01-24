@@ -26,22 +26,13 @@ template(name="main")
       form#createNode
         .panel.panel-success
           .panel-heading
-            h5.panel-title Create Node
+            h5.panel-title Add New City
           .panel-body
             .form-group
               label(for="name") Name
-              input.form-control(name="name" placeholder="Type new node name" maxlength="16")
-            .form-group
-              label(for="label") Select Label
-              select.form-control(name="label")
-                option(value="Person") Person
-                option(value="Place") Place
-                option(value="Movie") Movie
-            .form-group
-              label(for="description") Description
-              textarea.form-control(name="description")
+              input.form-control(id="name" name="name" placeholder="Type new City name" maxlength="24")
           .panel-footer
-            button.btn.btn-block.btn-success(type="submit") Create Node
+            button.btn.btn-block.btn-success(type="submit") Create City
     else
       if relationship
         +updateRelationship
@@ -51,36 +42,27 @@ template(name="main")
         form#editNode
           .panel.panel-primary
             .panel-heading
-              h5.panel-title Edit Node
+              h5.panel-title Edit City
             .panel-body
               .form-group
                 label(for="name") Name
-                input.form-control(name="name" placeholder="Type new node name" maxlength="16" value="{{nodeFrom.name}}")
-              .form-group
-                label(for="label") Select Label
-                select.form-control(name="label")
-                  option(value="Person" selected="{{#if isLabel 'Person' nodeFrom}}selected{{/if}}") Person
-                  option(value="Place" selected="{{#if isLabel 'Place' nodeFrom}}selected{{/if}}") Place
-                  option(value="Movie" selected="{{#if isLabel 'Movie' nodeFrom}}selected{{/if}}") Movie
-              .form-group
-                label(for="description") Description
-                textarea.form-control(name="description") {{nodeFrom.description}}
+                input.form-control(id="name" name="name" placeholder="Type new City name" maxlength="24" value="{{nodeFrom.name}}")
               if compare nodeFrom '&!' nodeTo
-                .alert.alert-info Select second node to create relationship
+                .alert.alert-info Select second City to create or calculate a Route
             unless getNodeDegree nodeFrom
               .panel-footer
                 .btn-group-vertical(style="width:100%")
-                  button.btn.btn-block.btn-primary(type="submit") Update Node
-                  button.btn.btn-block.btn-danger#deleteNode(type="button") Delete Node
+                  button.btn.btn-block.btn-primary(type="submit") Update City
+                  button.btn.btn-block.btn-danger#deleteNode(type="button") Delete City
             else
               .panel-footer
-                button.btn.btn-block.btn-primary(type="submit") Update Node
+                button.btn.btn-block.btn-primary(type="submit") Update City
               .panel-footer
                 .alert.alert-danger
                   strong 
-                    | You can not remove node with relationships.
+                    | You can not remove City with a Route.
                     br
-                    | Remove relationships first
+                    | Remove Route first
 
   footer.main-footer
     | Powered by 

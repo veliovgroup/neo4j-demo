@@ -1,14 +1,82 @@
-`import { Neo4jDB } from 'meteor/ostrio:neo4jdriver'`
+# `import { Neo4jDB } from 'meteor/ostrio:neo4jdriver'`
+Neo4jDB = require('neo4j-fiber').Neo4jDB
 
 Meteor.startup ->
   # Use process.env.NEO4J_URL
   db = new Neo4jDB()
 
   unless db.queryOne 'MATCH (n) RETURN n LIMIT 1'
-    db.querySync 'WITH ["Andres","Wes","Rik","Mark","Peter","Kenny","Michael","Stefan","Max","Chris"] AS names FOREACH (r IN range(0,19) | CREATE (:Person {x: r*100, y: r*50, removed: false, updatedAt: timestamp(), name:names[r % size(names)]+" "+r}));'
+    cities = {}
+    cities['Zürich'] = db.nodes(
+      removed: false
+      name: 'Zürich'
+      updatedAt: +new Date
+      x: 473
+      y: 85).labels.set('City')
+    cities['Tokyo'] = db.nodes(
+      removed: false
+      name: 'Tokyo'
+      updatedAt: +new Date
+      x: 356
+      y: 1396).labels.set('City')
+    cities['Athens'] = db.nodes(
+      removed: false
+      name: 'Athens'
+      updatedAt: +new Date
+      x: 379
+      y: 237).labels.set('City')
+    cities['Cape Town'] = db.nodes(
+      removed: false
+      name: 'Cape Town'
+      updatedAt: +new Date
+      x: -330
+      y: 180).labels.set('City')
+    cities['Shanghai'] = db.nodes(
+      removed: false
+      name: 'Shanghai'
+      updatedAt: +new Date
+      x: 310.230416
+      y: 1210.473701).labels.set('City')
+    cities['Buenos Aires'] = db.nodes(
+      removed: false
+      name: 'Buenos Aires'
+      updatedAt: +new Date
+      x: -340
+      y: -580).labels.set('City')
+    cities['Bombay'] = db.nodes(
+      removed: false
+      name: 'Bombay'
+      updatedAt: +new Date
+      x: 190
+      y: 728).labels.set('City')
+    cities['Karachi'] = db.nodes(
+      removed: false
+      name: 'Karachi'
+      updatedAt: +new Date
+      x: 248
+      y: 670).labels.set('City')
+
+    # Add relationship between cities
+    # At this example we set km
+    cities['Athens'].to cities['Cape Town'], 'ROUTE', km: 8015.08, updatedAt: +new Date
+    cities['Zürich'].to cities['Cape Town'], 'ROUTE', km: 1617.27, updatedAt: +new Date
+    cities['Cape Town'].to cities['Tokyo'], 'ROUTE', km: 9505.67, updatedAt: +new Date
+    cities['Zürich'].to cities['Athens'], 'ROUTE', km: 1617.27, updatedAt: +new Date
+    cities['Athens'].to cities['Tokyo'], 'ROUTE', km: 9576.67, updatedAt: +new Date
+    cities['Shanghai'].to cities['Buenos Aires'], 'ROUTE', km: 19641, updatedAt: +new Date
+    cities['Bombay'].to cities['Karachi'], 'ROUTE', km: 885.21, updatedAt: +new Date
 
 
   Meteor.methods
+    getPath: (from, to) ->
+      check from, Number
+      check to, Number
+      shortest = db.nodes(from).path(to, "ROUTE", {cost_property: 'km', algorithm: 'dijkstra'})[0]
+
+      if !shortest
+        return false
+      return {nodes: shortest.nodes, edges: shortest.relationships, km: shortest.weight}
+
     graph: (timestamp = 0) -> 
       check timestamp, Number
       nodes = {}
@@ -52,18 +120,23 @@ Meteor.startup ->
       return {updatedAt, data: visGraph}
 
     createNode: (form) ->
-      check form, Object
+      check form, {
+        name: String
+      }
       updatedAt = +new Date
-      n = db.nodes({description: form.description, name: form.name, updatedAt}).labels.replace([form.label]).get()
+      n = db.nodes({name: form.name, updatedAt}).labels.set('City').get()
       n.label = n.name
       n.group = n.labels[0]
       n
 
     updateNode: (form) ->
-      check form, Object
+      check form, {
+        name: String
+        id: Number
+      }
       form.id = parseInt form.id
       updatedAt = +new Date
-      n = db.nodes(form.id).properties.set({description: form.description, name: form.name, updatedAt}).labels.replace([form.label]).get()
+      n = db.nodes(form.id).properties.set({name: form.name, updatedAt}).get()
       n.label = n.name
       n.group = n.labels[0]
       n
@@ -94,13 +167,23 @@ Meteor.startup ->
       check form, Object
       form.to = parseInt form.to
       form.from = parseInt form.from
+      form.km = parseFloat form.km
+
+      check form, {
+        to: Number
+        from: Number
+        km: Number
+      }
+
+      if form.km < 1
+        throw new Meteor.Error 'km can\'t be less than 1km'
 
       updatedAt = +new Date
 
       n1 = db.nodes form.from
       n2 = db.nodes form.to
 
-      r = n1.to(n2, form.type, {description: form.description, updatedAt}).get()
+      r = n1.to(n2, 'ROUTE', {km: form.km, updatedAt}).get()
       r.from    = r.start
       r.to      = r.end
       r.label   = r.type
@@ -113,7 +196,18 @@ Meteor.startup ->
       form.to = parseInt form.to
       form.from = parseInt form.from
       form.id = parseInt form.id
-      
+      form.km = parseFloat form.km
+
+      check form, {
+        to: Number
+        from: Number
+        id: Number
+        km: Number
+      }
+
+      if form.km < 1
+        throw new Meteor.Error 'km can\'t be less than 1km'
+
       oldRel = db.relationship.get form.id
       ###
       If this relationship already marked as removed, then it changed by someone else
@@ -122,21 +216,21 @@ Meteor.startup ->
       updatedAt = +new Date
       if oldRel.get()
         unless oldRel.property 'removed'
-          n1 = db.nodes form.from
-          n2 = db.nodes form.to
-          if form.type isnt oldRel.get().type
-            oldRel.properties.set
-              removed: true
-              updatedAt: updatedAt
+          # n1 = db.nodes form.from
+          # n2 = db.nodes form.to
+          # if form.type isnt oldRel.get().type
+          #   oldRel.properties.set
+          #     removed: true
+          #     updatedAt: updatedAt
 
-            Meteor.setTimeout ->
-              r = db.relationship.get form.id
-              r.delete() if r?.get?()
-            , 1750
+          #   Meteor.setTimeout ->
+          #     r = db.relationship.get form.id
+          #     r.delete() if r?.get?()
+          #   , 1750
 
-            r = n1.to(n2, form.type, {description: form.description, updatedAt}).get()
-          else
-            r = oldRel.properties.set({description: form.description, updatedAt}).get()
+          #   r = n1.to(n2, form.type, {description: form.description, updatedAt}).get()
+          # else
+          r = oldRel.properties.set({km: form.km, updatedAt}).get()
 
           r.from    = r.start
           r.to      = r.end
@@ -174,11 +268,13 @@ Meteor.startup ->
       check id, Match.OneOf String, Number
       id = parseInt id
       check coords, x: Number, y: Number
+      node = db.nodes(id)
 
-      db.nodes(id).properties.set 
-        updatedAt: +new Date
-        x: coords.x
-        y: coords.y
+      if node._id && node._node
+        node.properties.set 
+          updatedAt: +new Date
+          x: coords.x
+          y: coords.y
 
       true
   return

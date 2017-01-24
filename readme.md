@@ -5,13 +5,15 @@ Demo app
  - [Heroku hosted demo](http://neo4j-graph.herokuapp.com)
 
 __Functionality:__
- - Create / Change / Remove nodes
- - Create / Change / Remove relationships
+ - Create / Change / Remove Cities (*nodes*)
+ - Create / Change / Remove Routes (*relationships*)
+ - Calculate shortest path (*dijkstra, cheapest distance*)
  - Graph visualization (by [visjs](http://visjs.org/))
  - Latency compensation (on [visjs](http://visjs.org/) level, but we wait for server response)
  - Client synchronization with minimal delay
  - Exception-less conflicts UX-workflow
- - Both examples powered by [GrapheneDB](http://www.graphenedb.com)
+ - Example powered by [GrapheneDB](http://www.graphenedb.com)
+ - No dependency from MongoDB
 
 Set up Neo4j
 ======
@@ -20,7 +22,7 @@ __Locally:__
  - In Terminal go to downloads folder and type `tar -xf <downloaded filename> -C ~/neo4j/`
  - Start Neo4j: `~/neo4j/bin/neo4j start`
  - Go to [localhost:7474](http://localhost:7474) and set up new credentials
- - Go to `server/main.coffee`, change credentials to your instance of Neo4j
+ - Set `NEO4J_URL` environment variable to connection URL for Neo4j (`NEO4J_URL="http://neo4j:1234@localhost:7474" node main.js`)
  - [Further reading](http://neo4j.com/docs/stable/server-installation.html)
 
 __GrapheneDB:__
@@ -59,8 +61,6 @@ web: node main.js
 # press Enter (return)
 # press ctrl + x
 npm init
-# go though all steps by pressing Enter (return)
-npm install fibers@1.0.7 mailcomposer progress http-proxy sockjs keypress stream-buffers simplesmtp request useragent clean-css uglify-js mongodb handlebars semver mime nib stylus less coffee-script optimist gzippo connect
 # Ignore all warnings (but not errors)
 heroku create <your-app-name> --buildpack https://github.com/heroku/heroku-buildpack-nodejs
 # This command will output something like: https://<your-app-name>.herokuapp.com/ | https://git.heroku.com/<your-app-name>.git

@@ -17,13 +17,22 @@ VIS_OPTIONS =
     physics: false
     shape: 'circle'
     labelHighlightBold: false
-    font: color: ND.color
-    borderWidth: 1
-    borderWidthSelected: 2
+    color:
+      background: '#555'
+      border: '#222'
+      highlight:
+        background: '#333'
+        border: '#000'
+      hover:
+        background: '#444'
+        border: '#111'
+    font:
+      color: '#fefefe'
+      strokeWidth: 0
   edges: 
     font: 
       strokeWidth: 2
-      color: ED.color
+      color: ES.color
       align: 'middle'
     color: ED.color
     selectionWidth: 1
@@ -36,39 +45,32 @@ VIS_OPTIONS =
   physics: 
     stabilization: false
   groups:
-    Person:
-      borderWidth: 1
-      color: 
-        background: 'rgba(75, 159, 236, 0.95)'
-        border: ND.color
+    City:
+      color:
+        background: '#555'
+        border: '#222'
         highlight:
-          background: 'rgba(75, 159, 236, 0.75)'
-          border: NS.color
+          background: '#333'
+          border: '#000'
         hover:
-          background: 'rgba(75, 159, 236, 0.75)'
-          border: NS.color
-    Movie:
-      borderWidth: 1
-      color: 
-        background: 'rgba(241, 187, 12, 0.95)'
-        border: ND.color
+          background: '#444'
+          border: '#111'
+      font:
+        color: '#fefefe'
+        strokeWidth: 0
+    Selected:
+      color:
+        background: '#433c76'
+        border: '#1d1a33'
         highlight:
-          background: 'rgba(241, 187, 12, 0.75)'
-          border: NS.color
+          background: '#433c76'
+          border: '#1d1a33'
         hover:
-          background: 'rgba(241, 187, 12, 0.75)'
-          border: NS.color
-    Place:
-      borderWidth: 1
-      color: 
-        background: 'rgba(230, 66, 66, 0.95)'
-        border: ND.color
-        highlight:
-          background: 'rgba(230, 66, 66, 0.75)'
-          border: NS.color
-        hover:
-          background: 'rgba(230, 66, 66, 0.75)'
-          border: NS.color
+          background: '#433c76'
+          border: '#1d1a33'
+      font:
+        color: '#fefefe'
+        strokeWidth: 0
 
 VIS_PREVIEW_OPTIONS = 
   height: '75px'
@@ -114,8 +116,8 @@ makeFakeRelation = (template, from, to, container) ->
       from: template.fromId
       to: template.toId
       id: template.rid
-      label: 'KNOWS'
-      group: 'KNOWS'
+      label: '0km'
+      group: 'ROUTE'
       arrows: 'to'
 
   template.edgesDS = new vis.DataSet [template.relationship]
@@ -153,42 +155,41 @@ Template.main.onCreated ->
   @resetNodes = (type = false) =>
     switch type
       when false
-        @nodesDS.update {id: @nodeFrom.get().id, color: border: ND.color} if @nodeFrom.get() and @_nodes[@nodeFrom.get().id]
-        @nodesDS.update {id: @nodeTo.get().id, color: border: ND.color} if @nodeTo.get() and @_nodes[@nodeTo.get().id]
+        @nodesDS.update {id: @nodeFrom.get().id, group: 'City', color: border: ND.color} if @nodeFrom.get() and @_nodes[@nodeFrom.get().id]
+        @nodesDS.update {id: @nodeTo.get().id, group: 'City', color: border: ND.color} if @nodeTo.get() and @_nodes[@nodeTo.get().id]
         @nodeFrom.set false
         @nodeTo.set false
       when 'to'
-        @nodesDS.update {id:@nodeTo.get().id, color: border: ND.color} if @nodeTo.get() and @_nodes[@nodeTo.get().id]
+        @nodesDS.update {id:@nodeTo.get().id, group: 'City', color: border: ND.color} if @nodeTo.get() and @_nodes[@nodeTo.get().id]
         @nodeTo.set false
       when 'from'
-        @nodesDS.update {id:@nodeFrom.get().id, color: border: ND.color} if @nodeFrom.get() and @_nodes[@nodeFrom.get().id]
+        @nodesDS.update {id:@nodeFrom.get().id, group: 'City', color: border: ND.color} if @nodeFrom.get() and @_nodes[@nodeFrom.get().id]
         @nodeFrom.set false
       when 'edge'
-        @edgesDS.update {id: @relationship.get().id, color: ED.color, font: color: ED.color} if @relationship.get() and @_edges[@relationship.get().id]
+        @edgesDS.update {id: @relationship.get().id, label: @relationship.get().km + 'km', color: ED.color, font: color: ES.color} if @relationship.get() and @_edges[@relationship.get().id]
         @relationship.set false
       when 'all'
         @nodeTo.set false
         @nodeFrom.set false
         @relationship.set false
-        @nodesDS.update ({id, color: border: ND.color} for id in @nodesDS.getIds())
-        @edgesDS.update ({id, color: ED.color, font: color: ED.color} for id in @edgesDS.getIds())
+        @nodesDS.update ({id, group: 'City', color: border: ND.color} for id in @nodesDS.getIds())
+        @edgesDS.update ({id, color: ED.color, font: color: ES.color} for id in @edgesDS.getIds())
     return
   return
 
 
 Template.main.helpers
-  showMenu: -> Template.instance().showMenu.get()
+  nodeTo:       -> Template.instance().nodeTo.get()
+  nodeFrom:     -> Template.instance().nodeFrom.get()
+  showMenu:     -> Template.instance().showMenu.get()
+  relationship: -> Template.instance().relationship.get()
   hasSelection: -> !!(Template.instance().nodeFrom.get() or Template.instance().nodeTo.get() or Template.instance().relationship.get())
-  nodeFrom: -> Template.instance().nodeFrom.get()
-  nodeTo: -> Template.instance().nodeTo.get()
   getNodeDegree: (node) -> 
     degree = 0
     for key, e of Template.instance()._edges
       if e.from is node.id or e.to is node.id
         ++degree
     degree
-  isLabel: (label, node) -> !!~node.labels.indexOf label
-  relationship: -> Template.instance().relationship.get()
 
 Template.main.events
   'click #menu': (e, template) ->
@@ -214,12 +215,9 @@ Template.main.events
 
   'submit form#createNode': (e, template) ->
     e.preventDefault()
-    form = 
-      name: "#{e.target.name.value}"
-      label: "#{e.target.label.value}"
-      description: "#{e.target.description.value}"
+    form = name: "#{e.target.name.value}"
 
-    if form.name.length > 0 and form.label.length > 0
+    if form.name.length > 0
       template.$(e.currentTarget).find(':submit').text('Creating...').prop('disabled', true)
       Meteor.call 'createNode', form, (error, node) ->
         if error
@@ -229,6 +227,7 @@ Template.main.events
           template._nodes[node.id] = node
           template.$(e.currentTarget).find(':submit').text('Create Node').prop('disabled', false)
           $(e.currentTarget)[0].reset()
+        return
     false
 
   'submit form#editNode': (e, template) ->
@@ -236,10 +235,9 @@ Template.main.events
     _n = template.nodeFrom.get()
     form = 
       name: "#{e.target.name.value}"
-      label: "#{e.target.label.value}"
-      description: "#{e.target.description.value}"
       id: _n.id
-    if form.name.length > 0 and form.label.length > 0 and (_n.name isnt form.name or _n.description isnt form.description or _n.group isnt form.label)
+
+    if form.name.length > 0 and _n.name isnt form.name
       template.$(e.currentTarget).find(':submit').text('Saving...').prop('disabled', true)
       Meteor.call 'updateNode', form, (error, node) ->
         if error
@@ -251,6 +249,7 @@ Template.main.events
           $(e.currentTarget)[0].reset()
           template.resetNodes()
           template.resetNodes('edge')
+        return
     false
 
 Template.main.onRendered ->
@@ -268,31 +267,31 @@ Template.main.onRendered ->
     if data?.nodes?[0]
       data.nodes[0] = parseInt data.nodes[0]
       unless @nodeFrom.get()
-        @nodesDS.update {id: data.nodes[0], color: border: NS.color}
+        @nodesDS.update {id: data.nodes[0], group: 'Selected', color: border: NS.color}
         @nodeFrom.set @_nodes[data.nodes[0]]
         @showMenu.set true
 
       else if @nodeFrom.get() and not @nodeTo.get()
         unless @nodeFrom.get().id is data.nodes[0]
-          @nodesDS.update {id: data.nodes[0], color: border: NS.color}
+          @nodesDS.update {id: data.nodes[0], group: 'Selected', color: border: NS.color}
           @nodeTo.set @_nodes[data.nodes[0]]
           @showMenu.set true
 
       else if @nodeFrom.get() and @nodeTo.get()
         @resetNodes()
-        @nodesDS.update {id: data.nodes[0], color: border: NS.color}
+        @nodesDS.update {id: data.nodes[0], group: 'Selected'}
         @nodeFrom.set @_nodes[data.nodes[0]]
         @showMenu.set true
 
     else if data?.edges?[0]
       @resetNodes()
 
-      @edgesDS.update {id: data.edges[0], color: ES.color, font: color: ES.color}
+      @edgesDS.update {id: data.edges[0], color: {color:'#433c76', highlight:'#433c76', hover: '#433c76'}, font: color: '#1d1a33'}
       @relationship.set @_edges[data.edges[0]]
       @showMenu.set true
 
     else if not data?.nodes?[0] and not data?.edges?[0]
-      @resetNodes()
+      @resetNodes('all')
       @showMenu.set false
     return
 
@@ -334,6 +333,7 @@ Template.main.onRendered ->
             @_nodes[node.id] = node
 
         for edge in data.edges
+          edge.label = edge.km + 'km'
           if edge.removed
             if @_edges?[edge.id]
               @edgesDS.remove edge.id
@@ -346,7 +346,7 @@ Template.main.onRendered ->
           else
             if @_edges?[edge.id]
               unless EJSON.equals edge, @_edges[edge.id]
-                @edgesDS.update edge 
+                @edgesDS.update edge
                 ###
                 If user currently inspecting / editing relationship, which just was updated
                 We update inspector
@@ -375,13 +375,13 @@ Template.createRelationship.onRendered ->
   @to = MainTemplate.nodeTo.get()
   makeFakeRelation @, @from, @to, document.getElementById 'createRelPreview'
   MainTemplate.previewEdge = 
-    id: Math.floor(Math.random()*(99999-1+1)+1)
+    id: Math.floor(Math.random() * 99998)
     from: @from.id
     to: @to.id
     arrows: 'to'
     dashes: true
-    label: 'KNOWS'
-    group: 'KNOWS'
+    label: '0km'
+    group: 'ROUTE'
 
   MainTemplate.edgesDS.add MainTemplate.previewEdge
   return
@@ -398,11 +398,11 @@ Template.createRelationship.events
     e.preventDefault()
     template.$(e.currentTarget).find(':submit').text('Creating...').prop('disabled', true)
     form = 
-      type: e.target.type.value
-      description: e.target.description.value
+      km: parseFloat e.target.km.value
       from: template.from.id
       to: template.to.id
-    if e.target.type.value.length > 0
+
+    if form.km > 0
       Meteor.call 'createRelationship', form, (error, edge) ->
         if error
           throw new Meteor.Error error
@@ -417,9 +417,34 @@ Template.createRelationship.events
         return
     false
 
-  'change select#type': (e, template) ->
-    template.relationship.label = MainTemplate.previewEdge.label = e.target.value
-    template.relationship.group = MainTemplate.previewEdge.group = e.target.value
+  'click #getPath': (e, template) ->
+    e.preventDefault()
+    template.$(e.currentTarget).text('Calculating...').prop 'disabled', true
+
+    Meteor.call 'getPath', parseInt(template.from.id), parseInt(template.to.id), (error, data) ->
+      if error
+        template.$(e.currentTarget).text('Calculate Shortest Path').prop('disabled', false)
+      else if data is false
+        template.$(e.currentTarget).text('No route between those Cities')
+      else
+        template.$(e.currentTarget).text('Calculated: ' + data.km + 'km and ' + data.edges.length + ' transfers')
+        for id in data.nodes
+          MainTemplate.nodesDS.update {id: id, group: 'Selected'}
+        
+        for id in data.edges
+          MainTemplate.edgesDS.update {id: id, color: {color:'#433c76', highlight:'#433c76', hover: '#433c76'}, font: color: '#1d1a33'}
+
+        MainTemplate.Network.fit data.edges.concat(data.nodes), {animation: 2, easingFunction: 'easeInOutQuad'}
+
+        template.relationship.label = MainTemplate.previewEdge.label = data.km + 'km'
+        template.edgesDS.update template.relationship
+        MainTemplate.edgesDS.update MainTemplate.previewEdge
+      return
+    return false
+
+  'change input#km': (e, template) ->
+    template.relationship.label = MainTemplate.previewEdge.label = e.currentTarget.value + 'km'
+    template.relationship.group = MainTemplate.previewEdge.group = 'ROUTE'
     template.edgesDS.update template.relationship
     MainTemplate.edgesDS.update MainTemplate.previewEdge
     return
@@ -449,25 +474,24 @@ Template.updateRelationship.events
     id = _r.id
     form = 
       id: id
-      type: e.target.type.value
-      description: e.target.description.value
+      km: e.target.km.value
       from: _r.from
       to: _r.to
 
-    if form.type.length > 0 and (_r.type isnt form.type or _r.description isnt form.description)
+    if _r.km isnt form.km
       template.$(e.currentTarget).find(':submit').text('Updating...').prop('disabled', true)
       Meteor.call 'updateRelationship', form, (error, edge) ->
         if error
           throw new Meteor.Error error
         else if _.isObject edge
-          if _r.type isnt form.type
-            # As in Neo4j no way to change relationship `type`
-            # We will create new one and replace it
-            MainTemplate.edgesDS.remove id
-            delete MainTemplate._edges[id]
-            MainTemplate.edgesDS.add edge
-          else
-            MainTemplate.edgesDS.update edge
+          # if _r.type isnt form.type
+          #   # As in Neo4j no way to change relationship `type`
+          #   # We will create new one and replace it
+          #   MainTemplate.edgesDS.remove id
+          #   delete MainTemplate._edges[id]
+          #   MainTemplate.edgesDS.add edge
+          # else
+          MainTemplate.edgesDS.update edge
           MainTemplate._edges[edge.id] = edge
 
         template.$(e.currentTarget).find(':submit').text('Update Relationship').prop('disabled', false)
@@ -493,8 +517,10 @@ Template.updateRelationship.events
       return
     false
 
-  'change select#type': (e, template) ->
-    template.relationship.label = e.target.value
-    template.relationship.group = e.target.value
+  'change input#km': (e, template) ->
+    edge = MainTemplate.relationship.get()
+    edge.label = template.relationship.label = e.currentTarget.value + 'km'
+    MainTemplate.edgesDS.update edge
+    template.relationship.group = 'ROUTE'
     template.edgesDS.update template.relationship
     return
