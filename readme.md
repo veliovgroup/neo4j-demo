@@ -66,6 +66,7 @@ heroku create <your-app-name> --buildpack https://github.com/heroku/heroku-build
 # This command will output something like: https://<your-app-name>.herokuapp.com/ | https://git.heroku.com/<your-app-name>.git
 # Copy this: `http://<your-app-name>.herokuapp.com`, note use only `http://` protocol!
 heroku config:set ROOT_URL=http://<your-app-name>.herokuapp.com
+heroku config:set NEO4J_URL=http://<url-to-neo4j>
 git commit -m "initial"
 git push heroku master
 ```
