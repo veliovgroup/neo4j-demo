@@ -1,5 +1,6 @@
 # `import { Neo4jDB } from 'meteor/ostrio:neo4jdriver'`
-Neo4jDB = require('neo4j-fiber').Neo4jDB
+Neo4jDB = require('meteor/ostrio:neo4jdriver').Neo4jDB
+# Neo4jDB = require('neo4j-fiber').Neo4jDB
 
 Meteor.startup ->
   # Use process.env.NEO4J_URL
@@ -11,626 +12,626 @@ Meteor.startup ->
       removed: false
       name: 'Zürich'
       updatedAt: +new Date
-      x: 473
-      y: 85).labels.set('City')
+      y: 473
+      x: 85).labels.set('City')
     cities['Tokyo'] = db.nodes(
       removed: false
       name: 'Tokyo'
       updatedAt: +new Date
-      x: 356
-      y: 1396).labels.set('City')
+      y: 356
+      x: 1396).labels.set('City')
     cities['Athens'] = db.nodes(
       removed: false
       name: 'Athens'
       updatedAt: +new Date
-      x: 379
-      y: 237).labels.set('City')
+      y: 379
+      x: 237).labels.set('City')
     cities['Cape Town'] = db.nodes(
       removed: false
       name: 'Cape Town'
       updatedAt: +new Date
-      x: -330
-      y: 180).labels.set('City')
+      y: -330
+      x: 180).labels.set('City')
     cities['Shanghai'] = db.nodes(
       removed: false
       name: 'Shanghai'
       updatedAt: +new Date
-      x: 310.230416
-      y: 1210.473701).labels.set('City')
+      y: 310.230416
+      x: 1210.473701).labels.set('City')
     cities['Buenos Aires'] = db.nodes(
       removed: false
       name: 'Buenos Aires'
       updatedAt: +new Date
-      x: -340
-      y: -580).labels.set('City')
+      y: -340
+      x: -580).labels.set('City')
     cities['Bombay'] = db.nodes(
       removed: false
       name: 'Bombay'
       updatedAt: +new Date
-      x: 190
-      y: 728).labels.set('City')
+      y: 190
+      x: 728).labels.set('City')
     cities['Karachi'] = db.nodes(
       removed: false
       name: 'Karachi'
       updatedAt: +new Date
-      x: 248
-      y: 670).labels.set('City')
+      y: 248
+      x: 670).labels.set('City')
     cities['Istanbul Ili'] = db.nodes(
       removed: false
       name: 'Istanbul Ili'
       updatedAt: +new Date
-      x: 411
-      y: 287).labels.set('City') 
+      y: 411
+      x: 287).labels.set('City') 
     cities['Mexico City'] = db.nodes(
       removed: false
       name: 'Mexico City'
       updatedAt: +new Date
-      x: 194
-      y: -991).labels.set('City')
+      y: 194
+      x: -991).labels.set('City')
     cities['Istanbul'] = db.nodes(
       removed: false
       name: 'Istanbul'
       updatedAt: +new Date
-      x: 410
-      y: 289).labels.set('City')  
+      y: 410
+      x: 289).labels.set('City')  
     cities['Delhi'] = db.nodes(
       removed: false
       name: 'Delhi'
       updatedAt: +new Date
-      x: 287
-      y: 771).labels.set('City')  
+      y: 287
+      x: 771).labels.set('City')  
     cities['Manila'] = db.nodes(
       removed: false
       name: 'Manila'
       updatedAt: +new Date
-      x: 145
-      y: 1209).labels.set('City')
+      y: 145
+      x: 1209).labels.set('City')
     cities['Moskva'] = db.nodes(
       removed: false
       name: 'Moskva'
       updatedAt: +new Date
-      x: 557
-      y: 376).labels.set('City')    
+      y: 557
+      x: 376).labels.set('City')    
     cities['Dhaka'] = db.nodes(
       removed: false
       name: 'Dhaka'
       updatedAt: +new Date
-      x: 238
-      y: 904).labels.set('City')  
+      y: 238
+      x: 904).labels.set('City')  
     cities['Seoul'] = db.nodes(
       removed: false
       name: 'Seoul'
       updatedAt: +new Date
-      x: 375
-      y: 1269).labels.set('City') 
+      y: 375
+      x: 1269).labels.set('City') 
     cities['Sao Paulo'] = db.nodes(
       removed: false
       name: 'Sao Paulo'
       updatedAt: +new Date
-      x: -235
-      y: -466).labels.set('City')  
+      y: -235
+      x: -466).labels.set('City')  
     cities['Lagos'] = db.nodes(
       removed: false
       name: 'Lagos'
       updatedAt: +new Date
-      x: 65
-      y: 33).labels.set('City')
+      y: 65
+      x: 33).labels.set('City')
     cities['Ogoyo'] = db.nodes(
       removed: false
       name: 'Ogoyo'
       updatedAt: +new Date
-      x: 530
-      y: 1586).labels.set('City')
+      y: 530
+      x: 1586).labels.set('City')
     cities['Jakarta'] = db.nodes(
       removed: false
       name: 'Jakarta'
       updatedAt: +new Date
-      x: -61
-      y: 1068).labels.set('City')
+      y: -61
+      x: 1068).labels.set('City')
     cities['Tokyo'] = db.nodes(
       removed: false
       name: 'Tokyo'
       updatedAt: +new Date
-      x: 356
-      y: 1396).labels.set('City')
+      y: 356
+      x: 1396).labels.set('City')
     cities['New York City'] = db.nodes(
       removed: false
       name: 'New York City'
       updatedAt: +new Date
-      x: 407
-      y: -740).labels.set('City')
+      y: 407
+      x: -740).labels.set('City')
     cities['Taipei'] = db.nodes(
       removed: false
       name: 'Taipei'
       updatedAt: +new Date
-      x: 250
-      y: 1215).labels.set('City')
+      y: 250
+      x: 1215).labels.set('City')
     cities['Kinshasa'] = db.nodes(
       removed: false
       name: 'Kinshasa'
       updatedAt: +new Date
-      x: -43
-      y: 159).labels.set('City')
+      y: -43
+      x: 159).labels.set('City')
     cities['Lima'] = db.nodes(
       removed: false
       name: 'Lima'
       updatedAt: +new Date
-      x: -120
-      y: -770).labels.set('City')
+      y: -120
+      x: -770).labels.set('City')
     cities['Cairo'] = db.nodes(
       removed: false
       name: 'Cairo'
       updatedAt: +new Date
-      x: 300
-      y: 312).labels.set('City')
+      y: 300
+      x: 312).labels.set('City')
     cities['Beijing'] = db.nodes(
       removed: false
       name: 'Beijing'
       updatedAt: +new Date
-      x: 399
-      y: 1164).labels.set('City')
+      y: 399
+      x: 1164).labels.set('City')
     cities['London'] = db.nodes(
       removed: false
       name: 'London'
       updatedAt: +new Date
-      x: 515
-      y: -1).labels.set('City')
+      y: 515
+      x: -1).labels.set('City')
     cities['Tehran'] = db.nodes(
       removed: false
       name: 'Tehran'
       updatedAt: +new Date
-      x: 356
-      y: 513).labels.set('City')
+      y: 356
+      x: 513).labels.set('City')
     cities['Nanchong'] = db.nodes(
       removed: false
       name: 'Nanchong'
       updatedAt: +new Date
-      x: 308
-      y: 1061).labels.set('City')
+      y: 308
+      x: 1061).labels.set('City')
     cities['Bogota'] = db.nodes(
       removed: false
       name: 'Bogota'
       updatedAt: +new Date
-      x: 47
-      y: -740).labels.set('City')
+      y: 47
+      x: -740).labels.set('City')
     cities['Hong Kong'] = db.nodes(
       removed: false
       name: 'Hong Kong'
       updatedAt: +new Date
-      x: 223
-      y: 1141).labels.set('City')
+      y: 223
+      x: 1141).labels.set('City')
     cities['Lahore'] = db.nodes(
       removed: false
       name: 'Lahore'
       updatedAt: +new Date
-      x: 315
-      y: 743).labels.set('City')
+      y: 315
+      x: 743).labels.set('City')
     cities['Rio de Janeiro'] = db.nodes(
       removed: false
       name: 'Rio de Janeiro'
       updatedAt: +new Date
-      x: -229
-      y: -431).labels.set('City')
+      y: -229
+      x: -431).labels.set('City')
     cities['Baghdad'] = db.nodes(
       removed: false
       name: 'Baghdad'
       updatedAt: +new Date
-      x: 333
-      y: 443).labels.set('City')
+      y: 333
+      x: 443).labels.set('City')
     cities['Tai\'an'] = db.nodes(
       removed: false
       name: 'Tai\'an'
       updatedAt: +new Date
-      x: 362
-      y: 1170).labels.set('City') 
+      y: 362
+      x: 1170).labels.set('City') 
     cities['Bangkok'] = db.nodes(
       removed: false
       name: 'Bangkok'
       updatedAt: +new Date
-      x: 137
-      y: 1005).labels.set('City') 
+      y: 137
+      x: 1005).labels.set('City') 
     cities['Bengalooru'] = db.nodes(
       removed: false
       name: 'Bengalooru'
       updatedAt: +new Date
-      x: 129
-      y: 775).labels.set('City')
+      y: 129
+      x: 775).labels.set('City')
     cities['Santiago'] = db.nodes(
       removed: false
       name: 'Santiago'
       updatedAt: +new Date
-      x: -334
-      y: -706).labels.set('City')
+      y: -334
+      x: -706).labels.set('City')
     cities['Kaifeng'] = db.nodes(
       removed: false
       name: 'Kaifeng'
       updatedAt: +new Date
-      x: 347
-      y: 1143).labels.set('City')
+      y: 347
+      x: 1143).labels.set('City')
     cities['Calcutta'] = db.nodes(
       removed: false
       name: 'Calcutta'
       updatedAt: +new Date
-      x: 225
-      y: 883).labels.set('City')
+      y: 225
+      x: 883).labels.set('City')
     cities['Toronto'] = db.nodes(
       removed: false
       name: 'Toronto'
       updatedAt: +new Date
-      x: 436
-      y: -793).labels.set('City')
+      y: 436
+      x: -793).labels.set('City')
     cities['Rangoon'] = db.nodes(
       removed: false
       name: 'Rangoon'
       updatedAt: +new Date
-      x: 168
-      y: 961).labels.set('City')
+      y: 168
+      x: 961).labels.set('City')
     cities['Sydney'] = db.nodes(
       removed: false
       name: 'Sydney'
       updatedAt: +new Date
-      x: -338
-      y: 1512).labels.set('City')
+      y: -338
+      x: 1512).labels.set('City')
     cities['Madras'] = db.nodes(
       removed: false
       name: 'Madras'
       updatedAt: +new Date
-      x: 130
-      y: 802).labels.set('City')
+      y: 130
+      x: 802).labels.set('City')
     cities['Riyadh'] = db.nodes(
       removed: false
       name: 'Riyadh'
       updatedAt: +new Date
-      x: 247
-      y: 466).labels.set('City')
+      y: 247
+      x: 466).labels.set('City')
     cities['Wuhan'] = db.nodes(
       removed: false
       name: 'Wuhan'
       updatedAt: +new Date
-      x: 305
-      y: 1143).labels.set('City')
+      y: 305
+      x: 1143).labels.set('City')
     cities['Saint Petersburg'] = db.nodes(
       removed: false
       name: 'Saint Petersburg'
       updatedAt: +new Date
-      x: 599
-      y: 303).labels.set('City')
+      y: 599
+      x: 303).labels.set('City')
     cities['Chongqing'] = db.nodes(
       removed: false
       name: 'Chongqing'
       updatedAt: +new Date
-      x: 295
-      y: 1065).labels.set('City')
+      y: 295
+      x: 1065).labels.set('City')
     cities['Chengdu'] = db.nodes(
       removed: false
       name: 'Chengdu'
       updatedAt: +new Date
-      x: 305
-      y: 1040).labels.set('City')
+      y: 305
+      x: 1040).labels.set('City')
     cities['Chittagong'] = db.nodes(
       removed: false
       name: 'Chittagong'
       updatedAt: +new Date
-      x: 223
-      y: 918).labels.set('City')
+      y: 223
+      x: 918).labels.set('City')
     cities['Alexandria'] = db.nodes(
       removed: false
       name: 'Alexandria'
       updatedAt: +new Date
-      x: 312
-      y: 299).labels.set('City')
+      y: 312
+      x: 299).labels.set('City')
     cities['Tianjin'] = db.nodes(
       removed: false
       name: 'Tianjin'
       updatedAt: +new Date
-      x: 390
-      y: 1172).labels.set('City')
+      y: 390
+      x: 1172).labels.set('City')
     cities['Melbourne'] = db.nodes(
       removed: false
       name: 'Melbourne'
       updatedAt: +new Date
-      x: -378
-      y: 1449).labels.set('City')
+      y: -378
+      x: 1449).labels.set('City')
     cities['Ahmadabad'] = db.nodes(
       removed: false
       name: 'Ahmadabad'
       updatedAt: +new Date
-      x: 230
-      y: 725).labels.set('City')
+      y: 230
+      x: 725).labels.set('City')
     cities['Los Angeles'] = db.nodes(
       removed: false
       name: 'Los Angeles'
       updatedAt: +new Date
-      x: 340
-      y: -1182).labels.set('City')
+      y: 340
+      x: -1182).labels.set('City')
     cities['Pusan'] = db.nodes(
       removed: false
       name: 'Pusan'
       updatedAt: +new Date
-      x: 351
-      y: 1290).labels.set('City')
+      y: 351
+      x: 1290).labels.set('City')
     cities['Abidjan'] = db.nodes(
       removed: false
       name: 'Abidjan'
       updatedAt: +new Date
-      x: 53
-      y: -40).labels.set('City')
+      y: 53
+      x: -40).labels.set('City')
     cities['Kano'] = db.nodes(
       removed: false
       name: 'Kano'
       updatedAt: +new Date
-      x: 120
-      y: 85).labels.set('City')
+      y: 120
+      x: 85).labels.set('City')
     cities['Hyderabad'] = db.nodes(
       removed: false
       name: 'Hyderabad'
       updatedAt: +new Date
-      x: 173
-      y: 784).labels.set('City')
+      y: 173
+      x: 784).labels.set('City')
     cities['Yokohama'] = db.nodes(
       removed: false
       name: 'Yokohama'
       updatedAt: +new Date
-      x: 354
-      y: 1396).labels.set('City')
+      y: 354
+      x: 1396).labels.set('City')
     cities['Ibadan'] = db.nodes(
       removed: false
       name: 'Ibadan'
       updatedAt: +new Date
-      x: 73
-      y: 39).labels.set('City')
+      y: 73
+      x: 39).labels.set('City')
     cities['Singapore'] = db.nodes(
       removed: false
       name: 'Singapore'
       updatedAt: +new Date
-      x: 13
-      y: 1038).labels.set('City')
+      y: 13
+      x: 1038).labels.set('City')
     cities['Ankara'] = db.nodes(
       removed: false
       name: 'Ankara'
       updatedAt: +new Date
-      x: 399
-      y: 328).labels.set('City')
+      y: 399
+      x: 328).labels.set('City')
     cities['Shenyang'] = db.nodes(
       removed: false
       name: 'Shenyang'
       updatedAt: +new Date
-      x: 418
-      y: 1234).labels.set('City')
+      y: 418
+      x: 1234).labels.set('City')
     cities['Ho Chi Minh City'] = db.nodes(
       removed: false
       name: 'Ho Chi Minh City'
       updatedAt: +new Date
-      x: 108
-      y: 1066).labels.set('City')
+      y: 108
+      x: 1066).labels.set('City')
     cities['Shiyan'] = db.nodes(
       removed: false
       name: 'Shiyan'
       updatedAt: +new Date
-      x: 326
-      y: 1107).labels.set('City')
+      y: 326
+      x: 1107).labels.set('City')
     cities['Cape Town'] = db.nodes(
       removed: false
       name: 'Cape Town'
       updatedAt: +new Date
-      x: -339
-      y: 184).labels.set('City')
+      y: -339
+      x: 184).labels.set('City')
     cities['Berlin'] = db.nodes(
       removed: false
       name: 'Berlin'
       updatedAt: +new Date
-      x: 525
-      y: 134).labels.set('City')
+      y: 525
+      x: 134).labels.set('City')
     cities['Montreal'] = db.nodes(
       removed: false
       name: 'Montreal'
       updatedAt: +new Date
-      x: 455
-      y: -735).labels.set('City')
+      y: 455
+      x: -735).labels.set('City')
     cities['Harbin'] = db.nodes(
       removed: false
       name: 'Harbin'
       updatedAt: +new Date
-      x: 458
-      y: 1265).labels.set('City')
+      y: 458
+      x: 1265).labels.set('City')
     cities['Xi\'an'] = db.nodes(
       removed: false
       name: 'Xi\'an'
       updatedAt: +new Date
-      x: 343
-      y: 1089).labels.set('City')
+      y: 343
+      x: 1089).labels.set('City')
     cities['Pyongyang'] = db.nodes(
       removed: false
       name: 'Pyongyang'
       updatedAt: +new Date
-      x: 390
-      y: 1257).labels.set('City')
+      y: 390
+      x: 1257).labels.set('City')
     cities['Lanzhou'] = db.nodes(
       removed: false
       name: 'Lanzhou'
       updatedAt: +new Date
-      x: 360
-      y: 1038).labels.set('City')
+      y: 360
+      x: 1038).labels.set('City')
     cities['Guangzhou'] = db.nodes(
       removed: false
       name: 'Guangzhou'
       updatedAt: +new Date
-      x: 231
-      y: 1132).labels.set('City')
+      y: 231
+      x: 1132).labels.set('City')
     cities['Casablanca'] = db.nodes(
       removed: false
       name: 'Casablanca'
       updatedAt: +new Date
-      x: 335
-      y: -75).labels.set('City')
+      y: 335
+      x: -75).labels.set('City')
     cities['Durban'] = db.nodes(
       removed: false
       name: 'Durban'
       updatedAt: +new Date
-      x: -298
-      y: 310).labels.set('City')
+      y: -298
+      x: 310).labels.set('City')
     cities['Madrid'] = db.nodes(
       removed: false
       name: 'Madrid'
       updatedAt: +new Date
-      x: 404
-      y: -37).labels.set('City')
+      y: 404
+      x: -37).labels.set('City')
     cities['Nanjing'] = db.nodes(
       removed: false
       name: 'Nanjing'
       updatedAt: +new Date
-      x: 320
-      y: 1187).labels.set('City')
+      y: 320
+      x: 1187).labels.set('City')
     cities['Kabul'] = db.nodes(
       removed: false
       name: 'Kabul'
       updatedAt: +new Date
-      x: 345
-      y: 692).labels.set('City')
+      y: 345
+      x: 692).labels.set('City')
     cities['Pune'] = db.nodes(
       removed: false
       name: 'Pune'
       updatedAt: +new Date
-      x: 185
-      y: 738).labels.set('City')
+      y: 185
+      x: 738).labels.set('City')
     cities['Surat'] = db.nodes(
       removed: false
       name: 'Surat'
       updatedAt: +new Date
-      x: 211
-      y: 728).labels.set('City')
+      y: 211
+      x: 728).labels.set('City')
     cities['Jiddah'] = db.nodes(
       removed: false
       name: 'Jiddah'
       updatedAt: +new Date
-      x: 212
-      y: 392).labels.set('City')
+      y: 212
+      x: 392).labels.set('City')
     cities['Chicago'] = db.nodes(
       removed: false
       name: 'Chicago'
       updatedAt: +new Date
-      x: 418
-      y: -876).labels.set('City')c
-    ities['Kanpur'] = db.nodes(
+      y: 418
+      x: -876).labels.set('City')
+    cities['Kanpur'] = db.nodes(
       removed: false
       name: 'Kanpur'
       updatedAt: +new Date
-      x: 264
-      y: 803).labels.set('City')
+      y: 264
+      x: 803).labels.set('City')
     cities['Luanda'] = db.nodes(
       removed: false
       name: 'Luanda'
       updatedAt: +new Date
-      x: -88
-      y: 132).labels.set('City')
+      y: -88
+      x: 132).labels.set('City')
     cities['Addis Ababa'] = db.nodes(
       removed: false
       name: 'Addis Ababa'
       updatedAt: +new Date
-      x: 89
-      y: 387).labels.set('City')
+      y: 89
+      x: 387).labels.set('City')
     cities['Nairobi'] = db.nodes(
       removed: false
       name: 'Nairobi'
       updatedAt: +new Date
-      x: -12
-      y: 368).labels.set('City')
+      y: -12
+      x: 368).labels.set('City')
     cities['Taiyuan'] = db.nodes(
       removed: false
       name: 'Taiyuan'
       updatedAt: +new Date
-      x: 378
-      y: 1125).labels.set('City')
+      y: 378
+      x: 1125).labels.set('City')
     cities['Salvador'] = db.nodes(
       removed: false
       name: 'Salvador'
       updatedAt: +new Date
-      x: 137
-      y: -888).labels.set('City')
+      y: 137
+      x: -888).labels.set('City')
     cities['Jaipur'] = db.nodes(
       removed: false
       name: 'Jaipur'
       updatedAt: +new Date
-      x: 269
-      y: 757).labels.set('City')
+      y: 269
+      x: 757).labels.set('City')
     cities['Dar es Salaam'] = db.nodes(
       removed: false
       name: 'Dar es Salaam'
       updatedAt: +new Date
-      x: -67
-      y: 392).labels.set('City')
+      y: -67
+      x: 392).labels.set('City')
     cities['Yunfu'] = db.nodes(
       removed: false
       name: 'Yunfu'
       updatedAt: +new Date
-      x: 229
-      y: 1120).labels.set('City')
+      y: 229
+      x: 1120).labels.set('City')
     cities['Al Basrah'] = db.nodes(
       removed: false
       name: 'Al Basrah'
       updatedAt: +new Date
-      x: 305
-      y: 477).labels.set('City')
+      y: 305
+      x: 477).labels.set('City')
     cities['Osaka'] = db.nodes(
       removed: false
       name: 'Osaka'
       updatedAt: +new Date
-      x: 346
-      y: 1355).labels.set('City')
+      y: 346
+      x: 1355).labels.set('City')
     cities['Mogadishu'] = db.nodes(
       removed: false
       name: 'Mogadishu'
       updatedAt: +new Date
-      x: 20
-      y: 453).labels.set('City')
+      y: 20
+      x: 453).labels.set('City')
     cities['Taegu'] = db.nodes(
       removed: false
       name: 'Taegu'
       updatedAt: +new Date
-      x: 358
-      y: 1286).labels.set('City')
+      y: 358
+      x: 1286).labels.set('City')
     cities['Rome'] = db.nodes(
       removed: false
       name: 'Rome'
       updatedAt: +new Date
-      x: 419
-      y: 124).labels.set('City')
+      y: 419
+      x: 124).labels.set('City')
     cities['Changchun'] = db.nodes(
       removed: false
       name: 'Changchun'
       updatedAt: +new Date
-      x: 438
-      y: 1253).labels.set('City')
+      y: 438
+      x: 1253).labels.set('City')
     cities['Kiev'] = db.nodes(
       removed: false
       name: 'Kiev'
       updatedAt: +new Date
-      x: 504
-      y: 305).labels.set('City')
+      y: 504
+      x: 305).labels.set('City')
     cities['Faisalabad'] = db.nodes(
       removed: false
       name: 'Faisalabad'
       updatedAt: +new Date
-      x: 314
-      y: 730).labels.set('City')
+      y: 314
+      x: 730).labels.set('City')
     cities['Izmir'] = db.nodes(
       removed: false
       name: 'Izmir'
       updatedAt: +new Date
-      x: 384
-      y: 271).labels.set('City')
+      y: 384
+      x: 271).labels.set('City')
     cities['Dakar'] = db.nodes(
       removed: false
       name: 'Dakar'
       updatedAt: +new Date
-      x: 147
-      y: -173).labels.set('City')
+      y: 147
+      x: -173).labels.set('City')
     cities['Lucknow'] = db.nodes(
       removed: false
       name: 'Lucknow'
       updatedAt: +new Date
-      x: 268
-      y: 809).labels.set('City')
+      y: 268
+      x: 809).labels.set('City')
 
 
 
