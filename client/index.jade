@@ -26,13 +26,13 @@ template(name="main")
       form#createNode
         .panel.panel-success
           .panel-heading
-            h5.panel-title Add New City
+            h5.panel-title Add New Airport
           .panel-body
             .form-group
               label(for="name") Name
-              input.form-control(id="name" name="name" placeholder="Type new City name" maxlength="24")
+              textarea.form-control(id="name" name="name" placeholder="Type new Airport name" maxlength="24" rows="3")
           .panel-footer
-            button.btn.btn-block.btn-success(type="submit") Create City
+            button.btn.btn-block.btn-success(type="submit") Create Airport
     else
       if relationship
         +updateRelationship
@@ -42,25 +42,25 @@ template(name="main")
         form#editNode
           .panel.panel-primary
             .panel-heading
-              h5.panel-title Edit City
+              h5.panel-title Edit Airport
             .panel-body
               .form-group
                 label(for="name") Name
-                input.form-control(id="name" name="name" placeholder="Type new City name" maxlength="24" value="{{nodeFrom.name}}")
+                textarea.form-control(id="name" name="name" placeholder="Type new Airport name" maxlength="24" rows="3") #{nodeFrom.name}
               if compare nodeFrom '&!' nodeTo
-                .alert.alert-info Select second City to create or calculate a Route
+                .alert.alert-info Select second Airport to create or calculate a Route
             unless getNodeDegree nodeFrom
               .panel-footer
                 .btn-group-vertical(style="width:100%")
-                  button.btn.btn-block.btn-primary(type="submit") Update City
-                  button.btn.btn-block.btn-danger#deleteNode(type="button") Delete City
+                  button.btn.btn-block.btn-primary(type="submit") Update Airport
+                  button.btn.btn-block.btn-danger#deleteNode(type="button") Delete Airport
             else
               .panel-footer
-                button.btn.btn-block.btn-primary(type="submit") Update City
+                button.btn.btn-block.btn-primary(type="submit") Update Airport
               .panel-footer
                 .alert.alert-danger
                   strong 
-                    | You can not remove City with a Route.
+                    | You can not remove Airport with a Route.
                     br
                     | Remove Route first
 
