@@ -1,6 +1,6 @@
 {
   "name": "Meteor-Neo4j-Demo",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Most advanced and efficient Neo4j REST API Driver, with support of https and GrapheneDB",
   "repository": "https://github.com/VeliovGroup/neo4j-demo",
   "website": "http://neo4j-graph.herokuapp.com",
@@ -37,6 +37,10 @@
   "env": {
     "ROOT_URL": {
       "description": "Full URL of your app, with protocol (scheme), ex.: https://example.com",
+      "required": true
+    },
+    "MONGO_URL": {
+      "description": "Full URL to mongodb, with protocol (scheme), ex.: mongodb://user:pass@host:port/db. Create free one at: https://mlab.com . Although MongoDB is not used at this application - Meteor won't start without it",
       "required": true
     },
     "NEO4J_URL": {
