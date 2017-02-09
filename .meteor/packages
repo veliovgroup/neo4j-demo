@@ -19,7 +19,6 @@ spacebars
 check@1.2.4
 reactive-var@1.0.11
 audit-argument-checks@1.0.7
-coffeescript@1.11.1_4
 seba:minifiers-autoprefixer   # CSS minifier run for production mode
 standard-minifier-js@1.2.1    # JS minifier run for production mode
 es5-shim@4.6.15               # ECMAScript 5 compatibility for older browsers.
@@ -30,4 +29,5 @@ mquandalle:jade
 
 ostrio:templatehelpers
 #ostrio:neo4jdriver
-shell-server
+shell-server@0.2.1
+ostrio:neo4jdriver
